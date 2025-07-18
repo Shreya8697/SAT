@@ -1,0 +1,6 @@
+#root {
+margin: 0;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(to right, #001987, #a29b4b); /* Purple-blue gradient */
+  min-height: 100vh;
+}
