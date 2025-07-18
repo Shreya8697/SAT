@@ -1,6 +1,6 @@
 import { Menu } from 'lucide-react';
 
-const Header = ({ setIsLoginOpen, setIsMobileMenuOpen, isMobileMenuOpen }) => {
+const Header = ({ setIsRegisterOpen, setIsMobileMenuOpen, isMobileMenuOpen }) => {
   return (
     <header className="sticky top-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,10 +18,10 @@ const Header = ({ setIsLoginOpen, setIsMobileMenuOpen, isMobileMenuOpen }) => {
               <a href="#testimonials" className="text-white hover:text-blue-400 transition-colors">Testimonials</a>
               <a href="#about" className="text-white hover:text-blue-400 transition-colors">About</a>
               <button 
-                onClick={() => setIsLoginOpen(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                onClick={() => setIsRegisterOpen(true)}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
-                Login
+                Sign Up
               </button>
             </div>
           </div>
@@ -43,10 +43,10 @@ const Header = ({ setIsLoginOpen, setIsMobileMenuOpen, isMobileMenuOpen }) => {
             <a href="#testimonials" className="block px-3 py-2 text-white hover:text-blue-400">Testimonials</a>
             <a href="#about" className="block px-3 py-2 text-white hover:text-blue-400">About</a>
             <button 
-              onClick={() => setIsLoginOpen(true)}
+              onClick={() => setIsRegisterOpen(true)}
               className="block w-full text-left px-3 py-2 text-blue-400 hover:text-blue-300"
             >
-              Login
+              Sign Up
             </button>
           </div>
         </div>

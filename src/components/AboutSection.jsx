@@ -1,6 +1,6 @@
 import { CheckCircle } from 'lucide-react';
 
-const AboutSection = ({ setIsLoginOpen }) => {
+const AboutSection = ({ setIsRegisterOpen }) => {
   return (
     <section id="about" className="py-20 bg-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,7 +35,7 @@ const AboutSection = ({ setIsLoginOpen }) => {
             <h3 className="text-2xl font-bold text-white mb-6">Ready to Start?</h3>
             <p className="text-gray-300 mb-8">Join thousands of successful students and start your SAT preparation journey today.</p>
             <button 
-              onClick={() => setIsLoginOpen(true)}
+              onClick={() => setIsRegisterOpen(true)}
               className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all"
             >
               Get Started Free

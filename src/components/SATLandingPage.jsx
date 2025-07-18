@@ -5,12 +5,17 @@ import DemoLectures from './DemoLectures';
 import Testimonials from './Testimonials';
 import AboutSection from './AboutSection';
 import Footer from './Footer';
-import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
 
 const SATLandingPage = () => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
+  const [registerForm, setRegisterForm] = useState({ 
+    name: '',
+    email: '', 
+    password: '',
+    confirmPassword: '' 
+  });
 
   const demoLectures = [
     {
@@ -63,12 +68,16 @@ const SATLandingPage = () => {
     }
   ];
 
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log('Login attempt:', loginForm);
-    if (loginForm.email && loginForm.password) {
-      setIsLoginOpen(false);
-      alert('Login successful! Access granted to premium content.');
+  const handleRegister = () => {
+    // Handle registration logic here
+    console.log('Registration attempt:', registerForm);
+    if (registerForm.name && registerForm.email && registerForm.password && registerForm.confirmPassword) {
+      if (registerForm.password === registerForm.confirmPassword) {
+        setIsRegisterOpen(false);
+        alert('Registration successful! Welcome to our platform.');
+      } else {
+        alert('Passwords do not match.');
+      }
     } else {
       alert('Please fill in all fields.');
     }
@@ -77,23 +86,23 @@ const SATLandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-9000 to-slate-900">
       <Header 
-        setIsLoginOpen={setIsLoginOpen} 
+        setIsRegisterOpen={setIsRegisterOpen} 
         setIsMobileMenuOpen={setIsMobileMenuOpen} 
         isMobileMenuOpen={isMobileMenuOpen} 
       />
       
-      <HeroSection setIsLoginOpen={setIsLoginOpen} />
-      <DemoLectures demoLectures={demoLectures} setIsLoginOpen={setIsLoginOpen} />
+      <HeroSection setIsRegisterOpen={setIsRegisterOpen} />
+      <DemoLectures demoLectures={demoLectures} setIsRegisterOpen={setIsRegisterOpen} />
       <Testimonials testimonials={testimonials} />
-      <AboutSection setIsLoginOpen={setIsLoginOpen} />
+      <AboutSection setIsRegisterOpen={setIsRegisterOpen} />
       <Footer />
       
-      <LoginModal 
-        isLoginOpen={isLoginOpen} 
-        setIsLoginOpen={setIsLoginOpen} 
-        loginForm={loginForm} 
-        setLoginForm={setLoginForm} 
-        handleLogin={handleLogin} 
+      <RegisterModal 
+        isRegisterOpen={isRegisterOpen} 
+        setIsRegisterOpen={setIsRegisterOpen} 
+        registerForm={registerForm} 
+        setRegisterForm={setRegisterForm} 
+        handleRegister={handleRegister} 
       />
     </div>
   );

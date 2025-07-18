@@ -1,7 +1,7 @@
 import { Play, ChevronRight, X } from 'lucide-react';
 import { useState } from 'react';
 
-const DemoLectures = ({ setIsLoginOpen }) => {
+const DemoLectures = ({ setIsRegisterOpen }) => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   // YouTube video ID for a sample SAT math lecture
@@ -89,7 +89,7 @@ const DemoLectures = ({ setIsLoginOpen }) => {
 
         <div className="text-center mt-12">
           <button 
-            onClick={() => setIsLoginOpen(true)}
+            onClick={() => setIsRegisterOpen(true)}
             className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all inline-flex items-center gap-2"
           >
             Access More Lectures <ChevronRight className="h-5 w-5" />
