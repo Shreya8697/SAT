@@ -28,7 +28,7 @@ const HeroSection = ({ setIsRegisterOpen }) => {
           <div className="text-center">
             <div className="bg-white/10 backdrop-blur-md rounded-lg p-6">
               <Users className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-2">50,000+</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">1000+</h3>
               <p className="text-gray-300">Students Enrolled</p>
             </div>
           </div>
