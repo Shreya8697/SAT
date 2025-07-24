@@ -157,3 +157,5 @@ const RegisterModal = ({ isRegisterOpen, setIsRegisterOpen, registerForm, setReg
 };
 
 export default RegisterModal;
+
+
