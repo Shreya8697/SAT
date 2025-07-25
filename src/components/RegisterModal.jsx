@@ -1,161 +1,249 @@
-import { X } from 'lucide-react';
+import { X, User, Mail, Phone, Key, MapPin, Home, School, GraduationCap } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const RegisterModal = ({ isRegisterOpen, setIsRegisterOpen, registerForm, setRegisterForm, handleRegister }) => {
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const [isRedirecting, setIsRedirecting] = useState(false);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+const RegisterModal = ({ isRegisterOpen, setIsRegisterOpen }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    mobileNumber: '',
+    otp: '',
+    city: '',
+    pincode: '',
+    currentSchool: '',
+    classLevel: ''
+  });
+
+  const [otpSent, setOtpSent] = useState(false);
 
   if (!isRegisterOpen) return null;
 
-  const handleRegisterWithRedirect = async () => {
-    try {
-      setError(null);
-      setIsRedirecting(true);
-      
-      await handleRegister();
-      setRegistrationSuccess(true);
-      
-      setTimeout(() => {
-        navigate('/free-demo-videos');
-      }, 2000);
-    } catch (error) {
-      console.error('Registration failed:', error);
-      setError(error.message || 'Registration failed. Please try again.');
-      setIsRedirecting(false);
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleCloseModal = () => {
-    if (!isRedirecting) {
-      setIsRegisterOpen(false);
-      setError(null);
-    }
+  const handleSendOtp = (e) => {
+    e.preventDefault();
+    setOtpSent(true);
+    alert('OTP sent to your mobile number!');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    alert('Registration submitted successfully!');
+    setIsRegisterOpen(false);
   };
 
   return (
-    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
-      <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6 md:p-8 w-full max-w-xs sm:max-w-sm md:max-w-md shadow-xl">
-        {/* Modal Header */}
-        <div className="flex justify-between items-center mb-4 sm:mb-6">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
-            {registrationSuccess ? 'Success!' : 'Create Account'}
-          </h2>
-          <button 
-            onClick={handleCloseModal}
-            className={`text-gray-500 hover:text-gray-800 ${isRedirecting ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={isRedirecting}
-          >
-            <X className="h-5 w-5 sm:h-6 sm:w-6" />
-          </button>
-        </div>
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white w-full max-w-lg rounded-xl shadow-lg p-6 relative my-8">
+        {/* Close Button */}
+        <button
+          onClick={() => setIsRegisterOpen(false)}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
+          aria-label="Close modal"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-        {registrationSuccess ? (
-          <div className="space-y-4 sm:space-y-6 text-center">
-            <p className="text-green-600 text-base sm:text-lg mb-3 sm:mb-4">
-              Now you can access the free demo videos!
-            </p>
-            <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-t-2 border-b-2 border-blue-500"></div>
-            </div>
-            <p className="text-gray-600 mt-3 sm:mt-4 text-sm sm:text-base animate-pulse">
-              Redirecting you to demo videos...
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-3 sm:space-y-4 md:space-y-6">
-            {error && (
-              <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-sm sm:text-base">
-                {error}
+        <h2 className="text-center text-2xl font-bold text-gray-900 mb-6">
+          Speak to a Counsellor
+        </h2>
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          {/* Name */}
+          <div className="relative">
+            <label htmlFor="name" className="sr-only">Name</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <User className="h-5 w-5 text-gray-400" />
               </div>
-            )}
-
-            <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                Full Name
-              </label>
               <input
+                id="name"
+                name="name"
                 type="text"
-                className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your full name"
-                value={registerForm.name}
-                onChange={(e) => setRegisterForm({ ...registerForm, name: e.target.value })}
-                disabled={isRedirecting}
+                required
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
+                className="pl-10 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             </div>
+          </div>
 
-            <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                Email Address
-              </label>
+          {/* Email */}
+          <div className="relative">
+            <label htmlFor="email" className="sr-only">Email</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Mail className="h-5 w-5 text-gray-400" />
+              </div>
               <input
+                id="email"
+                name="email"
                 type="email"
-                className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your email"
-                value={registerForm.email}
-                onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
-                disabled={isRedirecting}
+                required
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                className="pl-10 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             </div>
+          </div>
 
-            <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                Password
-              </label>
+          {/* Mobile + OTP */}
+          <div className="relative">
+            <label htmlFor="mobileNumber" className="sr-only">Mobile Number</label>
+            <div className="flex rounded-md shadow-sm">
+              <div className="relative flex-grow">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Phone className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="mobileNumber"
+                  name="mobileNumber"
+                  type="tel"
+                  required
+                  placeholder="Mobile Number"
+                  value={formData.mobileNumber}
+                  onChange={handleChange}
+                  className="pl-10 w-full border border-gray-300 rounded-l-md px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <button
+                onClick={handleSendOtp}
+                className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-r-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
+              >
+                Send OTP
+              </button>
+            </div>
+          </div>
+
+          {/* OTP Field */}
+          {otpSent && (
+            <div className="relative">
+              <label htmlFor="otp" className="sr-only">Enter OTP</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Key className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="otp"
+                  name="otp"
+                  type="text"
+                  required
+                  placeholder="Enter OTP"
+                  value={formData.otp}
+                  onChange={handleChange}
+                  className="pl-10 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* City */}
+          <div className="relative">
+            <label htmlFor="city" className="sr-only">City</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <MapPin className="h-5 w-5 text-gray-400" />
+              </div>
               <input
-                type="password"
-                className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Create a password"
-                value={registerForm.password}
-                onChange={(e) => setRegisterForm({ ...registerForm, password: e.target.value })}
-                disabled={isRedirecting}
+                id="city"
+                name="city"
+                type="text"
+                required
+                placeholder="City"
+                value={formData.city}
+                onChange={handleChange}
+                className="pl-10 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             </div>
+          </div>
 
-            <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                Confirm Password
-              </label>
+          {/* Pincode */}
+          <div className="relative">
+            <label htmlFor="pincode" className="sr-only">Pincode</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Home className="h-5 w-5 text-gray-400" />
+              </div>
               <input
-                type="password"
-                className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Confirm your password"
-                value={registerForm.confirmPassword}
-                onChange={(e) => setRegisterForm({ ...registerForm, confirmPassword: e.target.value })}
-                disabled={isRedirecting}
+                id="pincode"
+                name="pincode"
+                type="text"
+                required
+                placeholder="Pincode"
+                value={formData.pincode}
+                onChange={handleChange}
+                className="pl-10 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             </div>
+          </div>
 
+          {/* Current School */}
+          <div className="relative">
+            <label htmlFor="currentSchool" className="sr-only">Current School</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <School className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                id="currentSchool"
+                name="currentSchool"
+                type="text"
+                required
+                placeholder="Current School"
+                value={formData.currentSchool}
+                onChange={handleChange}
+                className="pl-10 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            </div>
+          </div>
+
+          {/* Class Level */}
+          <div className="relative">
+            <label htmlFor="classLevel" className="sr-only">Class Level</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <GraduationCap className="h-5 w-5 text-gray-400" />
+              </div>
+              <select
+                id="classLevel"
+                name="classLevel"
+                required
+                value={formData.classLevel}
+                onChange={handleChange}
+                className="pl-10 w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm appearance-none bg-white"
+              >
+                <option value="">Select class level</option>
+                <option value="Class 9">Class 9</option>
+                <option value="Class 10">Class 10</option>
+                <option value="Class 11">Class 11</option>
+                <option value="Class 12">Class 12</option>
+                <option value="Undergraduate">Undergraduate</option>
+                <option value="Postgraduate">Postgraduate</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Submit */}
+          <div>
             <button
-              onClick={handleRegisterWithRedirect}
-              className={`w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-medium sm:font-semibold transition-all flex justify-center items-center text-sm sm:text-base ${
-                isRedirecting 
-                  ? 'opacity-75 cursor-not-allowed' 
-                  : 'hover:from-blue-700 hover:to-purple-700'
-              }`}
-              disabled={isRedirecting}
+              type="submit"
+              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
             >
-              {isRedirecting ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Processing...
-                </>
-              ) : (
-                'Create Account'
-              )}
+              Submit
             </button>
           </div>
-        )}
+        </form>
       </div>
     </div>
   );
 };
 
 export default RegisterModal;
-
-

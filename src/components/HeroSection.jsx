@@ -52,7 +52,7 @@ const HeroSection = ({ setIsRegisterOpen }) => {
               </a>
             </div>
           </div>
-
+          
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="bg-gray-50 rounded-xl p-6 shadow-md">
