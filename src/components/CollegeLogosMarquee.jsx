@@ -35,8 +35,10 @@ const CollegeLogosMarquee = () => {
               <img
                 src={logo.src}
                 alt={logo.alt}
-                className="object-contain w-full h-full"
+                className="object-contain w-full h-full select-none"
                 loading="lazy"
+                draggable="false"
+                onContextMenu={(e) => e.preventDefault()}
               />
             </div>
           ))}
