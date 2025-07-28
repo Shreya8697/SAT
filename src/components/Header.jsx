@@ -134,6 +134,7 @@ const Header = ({ setIsRegisterOpen }) => {
                 { href: "#demos", label: "Demo Lectures" },
                 { href: "#testimonials", label: "Testimonials" },
                 { href: "#about", label: "About" },
+                { href: "#faqs", label: "FAQs" },
               ].map((item) => (
                 <a
                   key={item.href}

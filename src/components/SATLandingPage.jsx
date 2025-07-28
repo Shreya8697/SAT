@@ -10,6 +10,8 @@ import CollegeLogosMarquee from './CollegeLogosMarquee';
 import FeatureHighlights from './FeatureHighlights';
 import WhatWeOffer from './WhatWeOffer';
 import SATFaq from './SATFaq';
+import ScrollToTopButton from './ScrollToTopButton';
+
 
 const SATLandingPage = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -103,7 +105,7 @@ const SATLandingPage = () => {
       <AboutSection setIsRegisterOpen={setIsRegisterOpen} />
       <WhatWeOffer/>
       <FeatureHighlights setIsRegisterOpen={setIsRegisterOpen}/>
-      <SATFaq />
+      <SATFaq/>
       <Footer />
       
       <RegisterModal 
@@ -113,6 +115,7 @@ const SATLandingPage = () => {
         setRegisterForm={setRegisterForm} 
         handleRegister={handleRegister} 
       />
+      <ScrollToTopButton />
     </div>
   );
 };
