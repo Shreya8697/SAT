@@ -9,6 +9,7 @@ import RegisterModal from './RegisterModal';
 import CollegeLogosMarquee from './CollegeLogosMarquee';
 import FeatureHighlights from './FeatureHighlights';
 import WhatWeOffer from './WhatWeOffer';
+import SATFaq from './SATFaq';
 
 const SATLandingPage = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -102,6 +103,7 @@ const SATLandingPage = () => {
       <AboutSection setIsRegisterOpen={setIsRegisterOpen} />
       <WhatWeOffer/>
       <FeatureHighlights setIsRegisterOpen={setIsRegisterOpen}/>
+      <SATFaq />
       <Footer />
       
       <RegisterModal 
