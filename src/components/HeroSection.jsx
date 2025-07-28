@@ -32,6 +32,7 @@ const HeroSection = ({ setIsRegisterOpen }) => {
               Ace Your{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                 SAT
+                <sup className="text-[10px] text-gray-600 -top-12">TM</sup>
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-3xl mx-auto">
@@ -85,7 +86,7 @@ const HeroSection = ({ setIsRegisterOpen }) => {
           onClick={() => setIsRegisterOpen(true)}
           className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-5 py-3 rounded-full shadow-lg text-sm sm:text-base font-semibold transition-transform duration-300 hover:scale-105"
         >
-          Start Free Trial
+          Book Your Slot
         </button>
       )}
     </>

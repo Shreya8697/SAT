@@ -35,11 +35,16 @@ const Header = ({ setIsRegisterOpen }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <h1 className="text-2xl font-bold text-gray-900">
-                  SAT<span className="text-blue-600">Pro</span>
-                </h1>
-              </div>
+              <div className="flex-shrink-0 relative">
+              <h1 className="text-2xl font-bold text-gray-900 relative inline-block">
+                <span className="relative">
+                  SAT
+                  <sup className="absolute top-2 -right-2 text-[10px] text-gray-600">™</sup>
+                </span>
+                <span className="text-blue-600">_Pro</span>
+              </h1>
+            </div>
+
             </div>
 
             <div className="hidden md:block">
@@ -72,7 +77,7 @@ const Header = ({ setIsRegisterOpen }) => {
                   href="#faqs"
                   className="text-gray-800 hover:text-blue-600 transition-colors duration-200"
                 >
-                  FAQs
+                  FAQ's
                 </a>
                 <button
                   onClick={() => setIsRegisterOpen(true)}
@@ -134,7 +139,7 @@ const Header = ({ setIsRegisterOpen }) => {
                 { href: "#demos", label: "Demo Lectures" },
                 { href: "#testimonials", label: "Testimonials" },
                 { href: "#about", label: "About" },
-                { href: "#faqs", label: "FAQs" },
+                { href: "#faqs", label: "FAQ's" },
               ].map((item) => (
                 <a
                   key={item.href}
