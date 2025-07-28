@@ -44,8 +44,7 @@ const Header = ({ setIsRegisterOpen }) => {
                 <span className="text-blue-600">_Pro</span>
               </h1>
             </div>
-
-            </div>
+          </div>
 
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-8">

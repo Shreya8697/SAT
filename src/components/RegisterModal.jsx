@@ -1,4 +1,4 @@
-import { X, User, Mail, Phone, Key, ShieldCheck } from 'lucide-react';
+import { X, User, Mail, Phone, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,9 +19,16 @@ const RegisterModal = ({
 
   const handleRegisterWithRedirect = async (e) => {
     e.preventDefault();
+    setError(null);
+
+    if (registerForm.otp !== '12345') {
+      setError('Invalid OTP');
+      return;
+    }
+
     try {
-      setError(null);
       setIsSubmitting(true);
+      await submitToGoogleSheet();
       await handleRegister();
       setRegistrationSuccess(true);
       setTimeout(() => navigate('/free-demo-videos'), 2000);
@@ -40,10 +47,34 @@ const RegisterModal = ({
     }
   };
 
+  const submitToGoogleSheet = async () => {
+    const endpoint = 'https://script.google.com/macros/s/AKfycbyWwihiXUIsSiLfDsSxsjQpMqdSFMGRbWThSuh9IgV0RlJ907EGcfyGOYvD_W8q7cRwpQ/exec';
+
+    const payload = {
+      name: registerForm.name,
+      email: registerForm.email,
+      phone: registerForm.phone,
+    };
+
+    try {
+      await fetch(endpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Can't read response due to no-cors, so assume success
+    } catch (err) {
+      console.error('Error submitting to Google Sheet:', err);
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white border border-gray-200 rounded-xl shadow-xl w-full max-w-md overflow-hidden">
-        {/* Modal Header */}
         <div className="flex justify-between items-center p-6 border-b border-gray-100">
           <h2 className="text-2xl font-bold text-gray-900">
             {registrationSuccess ? 'Success!' : 'Create Account'}
@@ -57,7 +88,6 @@ const RegisterModal = ({
           </button>
         </div>
 
-        {/* Modal Content */}
         <div className="p-6">
           {registrationSuccess ? (
             <div className="text-center space-y-4">
@@ -68,20 +98,13 @@ const RegisterModal = ({
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
               <h3 className="text-lg font-medium text-gray-900">
                 Registration Successful!
               </h3>
-              <p className="text-gray-600">
-                You will be redirected to demo videos shortly...
-              </p>
+              <p className="text-gray-600">You will be redirected to demo videos shortly...</p>
               <div className="flex justify-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
               </div>
@@ -92,11 +115,7 @@ const RegisterModal = ({
                 <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded">
                   <div className="flex">
                     <div className="flex-shrink-0">
-                      <svg
-                        className="h-5 w-5 text-red-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
+                      <svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                         <path
                           fillRule="evenodd"
                           d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
@@ -111,17 +130,9 @@ const RegisterModal = ({
                 </div>
               )}
 
-              {/* <p className="text-gray-500 text-center text-sm">
-                Fill in your details..
-              </p> */}
-
-              {/* Form Fields */}
               <div className="space-y-4">
-                {/* Full Name */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Full Name
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                   <div className="relative rounded-md shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <User className="h-5 w-5 text-gray-400" />
@@ -132,19 +143,14 @@ const RegisterModal = ({
                       className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       placeholder="John Doe"
                       value={registerForm.name}
-                      onChange={(e) =>
-                        setRegisterForm({ ...registerForm, name: e.target.value })
-                      }
+                      onChange={(e) => setRegisterForm({ ...registerForm, name: e.target.value })}
                       disabled={isSubmitting}
                     />
                   </div>
                 </div>
 
-                {/* Email */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                   <div className="relative rounded-md shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <Mail className="h-5 w-5 text-gray-400" />
@@ -155,19 +161,14 @@ const RegisterModal = ({
                       className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       placeholder="john@example.com"
                       value={registerForm.email}
-                      onChange={(e) =>
-                        setRegisterForm({ ...registerForm, email: e.target.value })
-                      }
+                      onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
                       disabled={isSubmitting}
                     />
                   </div>
                 </div>
 
-                {/* Phone */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
                   <div className="relative rounded-md shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <Phone className="h-5 w-5 text-gray-400" />
@@ -178,20 +179,15 @@ const RegisterModal = ({
                       className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       placeholder="9876543210"
                       value={registerForm.phone}
-                      onChange={(e) =>
-                        setRegisterForm({ ...registerForm, phone: e.target.value })
-                      }
+                      onChange={(e) => setRegisterForm({ ...registerForm, phone: e.target.value })}
                       disabled={isSubmitting}
                     />
                   </div>
                 </div>
 
-                {/* OTP */}
                 {hasSentOtp && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      OTP
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">OTP</label>
                     <div className="relative rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <ShieldCheck className="h-5 w-5 text-gray-400" />
@@ -202,18 +198,14 @@ const RegisterModal = ({
                         className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         placeholder="Enter OTP"
                         value={registerForm.otp || ''}
-                        onChange={(e) =>
-                          setRegisterForm({ ...registerForm, otp: e.target.value })
-                        }
+                        onChange={(e) => setRegisterForm({ ...registerForm, otp: e.target.value })}
                         disabled={isSubmitting}
                       />
                     </div>
                   </div>
                 )}
-
               </div>
 
-              {/* Submit Button */}
               <div className="pt-2">
                 {!hasSentOtp ? (
                   <button
@@ -259,21 +251,19 @@ const RegisterModal = ({
                     )}
                   </button>
                 )}
-
               </div>
             </form>
           )}
         </div>
       </div>
-      {isSubmitting && registrationSuccess && (
-  <div className="fixed inset-0 bg-white bg-opacity-75 flex flex-col items-center justify-center z-50">
-    <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-600"></div>
-    <p className="mt-4 text-gray-800 text-sm">Redirecting to demo videos...</p>
-  </div>
-)}
 
+      {isSubmitting && registrationSuccess && (
+        <div className="fixed inset-0 bg-white bg-opacity-75 flex flex-col items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-600"></div>
+          <p className="mt-4 text-gray-800 text-sm">Redirecting to demo videos...</p>
+        </div>
+      )}
     </div>
-    
   );
 };
 
