@@ -39,7 +39,7 @@ const Header = ({ setIsRegisterOpen }) => {
               <h1 className="text-2xl font-bold text-gray-900 relative inline-block">
                 <span className="relative">
                   SAT
-                  <sup className="absolute top-2 -right-2 text-[10px] text-gray-600">™</sup>
+                  {/* <sup className="absolute top-2 -right-2 text-[10px] text-gray-600">™</sup> */}
                 </span>
                 <span className="text-blue-600">_Pro</span>
               </h1>
