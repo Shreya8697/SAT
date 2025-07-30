@@ -71,6 +71,13 @@ const SATLandingPage = () => {
       score: "1450",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face",
       text: "Amazing platform! The free demos convinced me to sign up, and I'm so glad I did."
+    },
+    {
+      id: 4,
+      name: "Aisha Patel",
+      score: "1450",
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face",
+      text: "Amazing platform! The free demos convinced me to sign up, and I'm so glad I did."
     }
   ];
 
