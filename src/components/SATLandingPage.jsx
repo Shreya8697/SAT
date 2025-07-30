@@ -78,7 +78,21 @@ const SATLandingPage = () => {
       score: "1450",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face",
       text: "Amazing platform! The free demos convinced me to sign up, and I'm so glad I did."
-    }
+    },
+    {
+      id: 5,
+      name: "Jessica Martinez",
+      score: "1480",
+      image: "https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=80&h=80&fit=crop&crop=face",
+      text: "The demo lectures were incredibly helpful! I improved my score by 200 points after accessing the full program."
+    },
+    {
+      id: 6,
+      name: "David Thompson",
+      score: "1520",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
+      text: "The instructors explain complex concepts so clearly. I felt confident walking into the test."
+    },
   ];
 
   const handleRegister = () => {
