@@ -127,7 +127,7 @@ export default function Testimonials({ testimonials }) {
         ))}
       </div>
 
-      <div className="flex justify-center mt-6 space-x-2">
+      {/* <div className="flex justify-center mt-6 space-x-2">
         {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, groupIdx) => (
           <button
             key={groupIdx}
@@ -139,12 +139,12 @@ export default function Testimonials({ testimonials }) {
             )}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 
   return (
-    <section className="w-full py-12 md:py-16 bg-gray-50">
+    <section id="testimonials" className="w-full py-12 md:py-16 bg-gray-50">
       <div className="mx-auto px-4 max-w-6xl text-center">
         <h2 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900">Student Success Stories</h2>
         <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8 max-w-xl mx-auto">
